@@ -64,7 +64,6 @@ body {
 /* Hero Section Styles */
 .hero {
     height: 100vh;
-    background-image: url('https://images.pexels.com/photos/1878522/pexels-photo-1878522.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
     background-size: cover;
     background-position: center;
     display: flex;

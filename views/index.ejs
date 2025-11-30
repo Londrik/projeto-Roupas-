@@ -1,21 +1,35 @@
 <!DOCTYPE html>
+<!-- Define o tipo de documento como HTML5 -->
 <html lang="pt-BR">
+<!-- Define o idioma da página como Português do Brasil -->
 <head>
     <meta charset="UTF-8">
+    <!-- Define o conjunto de caracteres como UTF-8 para suportar caracteres especiais -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Configura a viewport para que o site seja responsivo em dispositivos móveis -->
     <title><%= pageTitle %></title>
+    <!-- Define o título da página, que é passado pelo controlador -->
     <link rel="stylesheet" href="/styles.css">
+    <!-- Link para a folha de estilos CSS principal -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Pré-conecta ao servidor de fontes do Google para um carregamento mais rápido -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Pré-conecta ao servidor de fontes do Google (com crossorigin) -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Importa a fonte Montserrat do Google Fonts com diferentes pesos -->
 </head>
 <body>
+    <!-- Corpo do documento -->
     <header class="main-header">
+        <!-- Cabeçalho principal -->
         <nav class="main-header__nav">
+            <!-- Barra de navegação -->
             <div class="main-header__brand">
+                <!-- Logotipo ou marca do site -->
                 <a href="/">MOÇA LINDA</a>
             </div>
             <ul class="main-header__item-list">
+                <!-- Lista de itens de navegação -->
                 <li class="main-header__item"><a href="/">Home</a></li>
                 <li class="main-header__item"><a href="#">Loja</a></li>
                 <li class="main-header__item"><a href="#">Liquidação</a></li>
@@ -23,20 +37,27 @@
                 <li class="main-header__item"><a href="#">Revendedores</a></li>
             </ul>
             <div class="main-header__lang">
+                <!-- Seletor de idioma (exemplo) -->
                 <span>🇧🇷</span>
             </div>
         </nav>
     </header>
 
     <main class="hero">
+        <!-- Seção principal (hero) -->
         <div class="hero__content">
+            <!-- Conteúdo da seção hero -->
             <h1 class="hero__title">PRIMAVERA E VERÃO</h1>
+            <!-- Título principal -->
             <button class="hero__button">Comprar</button>
+            <!-- Botão de chamada para ação -->
         </div>
     </main>
 
     <footer class="main-footer">
+        <!-- Rodapé principal -->
         <p>FRETE GRÁTIS PARA TODOS OS LOCAIS</p>
+        <!-- Informação no rodapé -->
     </footer>
 </body>
 </html>
