@@ -1,0 +1,95 @@
+a<!DOCTYPE html>
+<html lang="pt-BR">
+
+<%- include('./includes/head.ejs') %>
+
+<body>
+
+    <%- include('./includes/navigation.ejs') %>
+
+    <main class="container cart-page-container">
+        <div class="cart-content">
+
+            <h1>Seu Carrinho</h1>
+
+            <% if (cart.products && cart.products.length > 0) { %>
+            <div class="cart-layout">
+                <!-- Coluna da Esquerda: Itens do Carrinho -->
+                <div class="cart-items-list">
+                    <% cart.products.forEach(p => { %>
+                    <div class="cart-item">
+                        <div class="cart-item-image">
+                            <img src="<%= p.item.imageUrl %>" alt="<%= p.item.name %>">
+                        </div>
+                        <div class="cart-item-info">
+                            <h3><%= p.item.name %></h3>
+                            <p>Tamanho: <%= p.size %></p>
+                            <p class="cart-item-price">R$ <%= parseFloat(p.item.price.replace('R$', '').replace(',', '.')).toFixed(2).replace('.', ',') %></p>
+                        </div>
+                        <div class="cart-item-quantity">
+                            <form action="/cart-update-item" method="POST" class="quantity-form">
+                                <input type="hidden" name="productId" value="<%= p.item.id %>">
+                                <input type="hidden" name="size" value="<%= p.size %>">
+                                <button type="submit" name="quantity" value="<%= p.quantity - 1 %>" class="quantity-btn">-</button>
+                                <span><%= p.quantity %></span>
+                                <button type="submit" name="quantity" value="<%= p.quantity + 1 %>" class="quantity-btn">+</button>
+                            </form>
+                        </div>
+                        <div class="cart-item-subtotal">
+                            <p>R$ <%= (parseFloat(p.item.price.replace('R$', '').replace(',', '.')) * p.quantity).toFixed(2).replace('.', ',') %></p>
+                        </div>
+                        <div class="cart-item-remove">
+                            <form action="/cart-delete-item" method="POST">
+                                <input type="hidden" name="productId" value="<%= p.item.id %>">
+                                <input type="hidden" name="size" value="<%= p.size %>">
+                                <button type="submit" class="remove-btn">&times;</button>
+                            </form>
+                        </div>
+                    </div>
+                    <% }) %>
+                </div>
+
+                <!-- Coluna da Direita: Resumo do Pedido -->
+                <div class="order-summary-card">
+                    <h2>Resumo do Pedido</h2>
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span>R$ <%= cart.totalPrice.toFixed(2).replace('.', ',') %></span>
+                    </div>
+                    <div class="summary-shipping">
+                        <p>Calcular Frete</p>
+                        <form class="shipping-form">
+                            <input type="text" placeholder="Digite seu CEP">
+                            <button type="submit">OK</button>
+                        </form>
+                    </div>
+                    <div class="summary-coupon">
+                        <p>Cupom de Desconto</p>
+                        <form class="coupon-form">
+                            <input type="text" placeholder="Digite seu cupom">
+                            <button type="submit">Aplicar</button>
+                        </form>
+                    </div>
+                    <div class="summary-total">
+                        <span>Total</span>
+                        <span>R$ <%= cart.totalPrice.toFixed(2).replace('.', ',') %></span>
+                    </div>
+                    <a href="/checkout" class="banner-button checkout-btn">Finalizar Compra</a>
+                </div>
+            </div>
+            <% } else { %>
+            <!-- Carrinho Vazio -->
+            <div class="empty-cart">
+                <h2>Seu carrinho está vazio</h2>
+                <p>Adicione produtos ao seu carrinho para vê-los aqui.</p>
+                <a href="/products" class="banner-button">Continuar Comprando</a>
+            </div>
+            <% } %>
+        </div>
+    </main>
+
+    <%- include('./includes/end.ejs') %>
+
+</body>
+
+</html>

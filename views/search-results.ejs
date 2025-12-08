@@ -1,0 +1,40 @@
+'<!DOCTYPE html>
+<html lang="pt-BR">
+
+<%- include('includes/head.ejs') %>
+
+<body>
+
+    <%- include('includes/navigation.ejs') %>
+
+    <main>
+        <div class="container">
+            <section class="featured-products-section" style="padding: 60px 0;">
+                <h2>Resultados da Busca por "<%= searchQuery %>"</h2>
+
+                <% if (products.length > 0) { %>
+                    <div class="product-grid">
+                        <% products.forEach(product => { %>
+                            <!-- CARD DE PRODUTO PADRONIZADO -->
+                            <div class="product-card">
+                                <a href="/products/<%= product.id %>">
+                                    <div class="product-image-container">
+                                        <img src="<%= product.imageUrl %>" alt="<%= product.name %>">
+                                    </div>
+                                    <div class="product-info">
+                                        <h3><%= product.name %></h3>
+                                        <p class="product-price">R$ <%= product.price.toFixed(2).replace('.', ',') %></p>
+                                        <span class="button-like">Ver Detalhes</span>
+                                    </div>
+                                </a>
+                            </div>
+                        <% }) %>
+                    </div>
+                <% } else { %>
+                    <p>Nenhum produto encontrado para a busca "<%= searchQuery %>".</p>
+                <% } %>
+            </section>
+        </div>
+    </main>
+
+    <%- include('includes/end.ejs') %>

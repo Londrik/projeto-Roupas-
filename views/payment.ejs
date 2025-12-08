@@ -1,0 +1,90 @@
+<%- include('./includes/head.ejs') %>
+
+<body>
+
+    <%- include('./includes/navigation.ejs') %>
+
+    <main class="container checkout-page-container">
+        <% if (cart.products && cart.products.length > 0) { %>
+        <div class="checkout-layout">
+
+            <!-- Coluna da Esquerda: Formulário de Pagamento -->
+            <div class="checkout-form-container">
+                <h1>Pagamento</h1>
+                <form action="/order" method="POST" class="checkout-form">
+                    
+                    <section>
+                        <h2>Informações do Cartão de Crédito</h2>
+                        <div class="form-group">
+                            <label for="cardNumber">Número do Cartão</label>
+                            <input type="text" id="cardNumber" name="cardNumber" placeholder="0000 0000 0000 0000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cardName">Nome no Cartão</label>
+                            <input type="text" id="cardName" name="cardName" placeholder="Nome como aparece no cartão" required>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="cardExpiry">Validade</label>
+                                <input type="text" id="cardExpiry" name="cardExpiry" placeholder="MM/AA" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cardCvv">CVV</label>
+                                <input type="text" id="cardCvv" name="cardCvv" placeholder="123" required>
+                            </div>
+                        </div>
+                    </section>
+
+                    <button type="submit" class="banner-button proceed-btn">Finalizar e Pagar</button>
+                </form>
+            </div>
+
+            <!-- Coluna da Direita: Resumo do Pedido -->
+            <div class="order-summary-card">
+                <h2>Resumo do Pedido</h2>
+                <div class="summary-items">
+                    <% cart.products.forEach(p => { %>
+                        <div class="summary-item">
+                            <div class="summary-item-image">
+                                <img src="<%= p.item.imageUrl %>" alt="<%= p.item.name %>">
+                                <span class="summary-item-quantity"><%= p.quantity %></span>
+                            </div>
+                            <div class="summary-item-details">
+                                <p><%= p.item.name %></p>
+                                <small>Tamanho: <%= p.size %></small>
+                            </div>
+                            <div class="summary-item-price">
+                                <p>R$ <%= (parseFloat(p.item.price.replace('R$', '').replace(',', '.')) * p.quantity).toFixed(2).replace('.', ',') %></p>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>R$ <%= cart.totalPrice.toFixed(2).replace('.', ',') %></span>
+                </div>
+                <div class="summary-row">
+                    <span>Frete</span>
+                    <span>Grátis</span>
+                </div>
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span>R$ <%= cart.totalPrice.toFixed(2).replace('.', ',') %></span>
+                </div>
+            </div>
+
+        </div>
+        <% } else { %>
+            <div class="empty-cart">
+                <h2>Não há nada para pagar.</h2>
+                <p>Seu carrinho está vazio.</p>
+                <a href="/products" class="banner-button">Continuar Comprando</a>
+            </div>
+        <% } %>
+    </main>
+
+    <%- include('./includes/end.ejs') %>
+
+</body>
+
+</html>

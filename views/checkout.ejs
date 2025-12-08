@@ -1,0 +1,116 @@
+<%- include('./includes/head.ejs') %>
+
+<body>
+
+    <%- include('./includes/navigation.ejs') %>
+
+    <main class="container checkout-page-container">
+        <% if (cart.products && cart.products.length > 0) { %>
+        <div class="checkout-layout">
+
+            <!-- Coluna da Esquerda: Formulário de Checkout -->
+            <div class="checkout-form-container">
+                <h1>Finalizar Compra</h1>
+                <form action="/checkout" method="POST" class="checkout-form">
+                    
+                    <section>
+                        <h2>Informações de Contato</h2>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2>Endereço de Entrega</h2>
+                        <div class="form-group">
+                            <label for="fullName">Nome Completo</label>
+                            <input type="text" id="fullName" name="fullName" placeholder="Seu nome completo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Endereço</label>
+                            <input type="text" id="address" name="address" placeholder="Rua, Avenida, etc." required>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="number">Número</label>
+                                <input type="text" id="number" name="number" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="complement">Complemento</label>
+                                <input type="text" id="complement" name="complement" placeholder="Apto, Bloco (opcional)">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="neighborhood">Bairro</label>
+                            <input type="text" id="neighborhood" name="neighborhood" required>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="city">Cidade</label>
+                                <input type="text" id="city" name="city" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="state">Estado</label>
+                                <input type="text" id="state" name="state" required>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label for="zipCode">CEP</label>
+                            <input type="text" id="zipCode" name="zipCode" placeholder="00000-000" required>
+                        </div>
+                    </section>
+
+                    <button type="submit" class="banner-button proceed-btn">Ir para o Pagamento</button>
+                </form>
+            </div>
+
+            <!-- Coluna da Direita: Resumo do Pedido -->
+            <div class="order-summary-card">
+                <h2>Resumo do Pedido</h2>
+                <div class="summary-items">
+                    <% cart.products.forEach(p => { %>
+                        <div class="summary-item">
+                            <div class="summary-item-image">
+                                <img src="<%= p.item.imageUrl %>" alt="<%= p.item.name %>">
+                                <span class="summary-item-quantity"><%= p.quantity %></span>
+                            </div>
+                            <div class="summary-item-details">
+                                <p><%= p.item.name %></p>
+                                <small>Tamanho: <%= p.size %></small>
+                            </div>
+                            <div class="summary-item-price">
+                                <p>R$ <%= (parseFloat(p.item.price.replace('R$', '').replace(',', '.')) * p.quantity).toFixed(2).replace('.', ',') %></p>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>R$ <%= cart.totalPrice.toFixed(2).replace('.', ',') %></span>
+                </div>
+                <div class="summary-row">
+                    <span>Frete</span>
+                    <span>Grátis</span>
+                </div>
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span>R$ <%= cart.totalPrice.toFixed(2).replace('.', ',') %></span>
+                </div>
+            </div>
+
+        </div>
+        <% } else { %>
+            <div class="empty-cart">
+                <h2>Não há nada no seu carrinho.</h2>
+                <p>O checkout não está disponível pois seu carrinho está vazio.</p>
+                <a href="/products" class="banner-button">Continuar Comprando</a>
+            </div>
+        <% } %>
+    </main>
+
+    <%- include('./includes/end.ejs') %>
+
+</body>
+
+</html>

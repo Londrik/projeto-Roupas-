@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<%- include('../includes/head.ejs') %>
+
+<body>
+
+    <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <div class="container">
+            <section class="featured-products-section" style="padding: 60px 0;">
+                <h2>Todos os Produtos</h2>
+                <div class="product-grid">
+                    <% if (products.length > 0) { %>
+                        <% products.forEach(product => { %>
+                            <!-- CARD DE PRODUTO PADRONIZADO -->
+                            <div class="product-card">
+                                <a href="/products/<%= product.id %>">
+                                    <div class="product-image-container">
+                                        <img src="<%= product.imageUrl %>" alt="<%= product.name %>">
+                                    </div>
+                                    <div class="product-info">
+                                        <h3><%= product.name %></h3>
+                                        <p class="product-price">R$ <%= product.price.toFixed(2).replace('.', ',') %></p>
+                                        <span class="button-like">Ver Detalhes</span>
+                                    </div>
+                                </a>
+                            </div>
+                        <% }) %>
+                    <% } else { %>
+                        <p>Nenhum produto encontrado para esta categoria.</p>
+                    <% } %>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <%- include('../includes/end.ejs') %>

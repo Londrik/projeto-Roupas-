@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<%- include('includes/head.ejs') %>
+
+<body>
+
+    <%- include('includes/navigation.ejs') %>
+
+    <main>
+        <div class="container category-page-container">
+
+            <!-- Filtros -->
+            <aside class="filter-sidebar">
+                <h3>Filtros</h3>
+
+                <!-- Filtro de Preço -->
+                <div class="filter-group">
+                    <h4>Preço</h4>
+                    <input type="range" id="price-range" name="price-range" min="0" max="1000" value="1000">
+                    <div class="price-range-label">
+                        <span>Valor:</span>
+                        <span>R$0 - R$1000</span>
+                    </div>
+                </div>
+
+                <!-- Filtro de Cor -->
+                <div class="filter-group">
+                    <h4>Cor</h4>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="color" value="preto"> Preto</label>
+                        <label><input type="checkbox" name="color" value="branco"> Branco</label>
+                        <label><input type="checkbox" name="color" value="dourado"> Dourado</label>
+                        <label><input type="checkbox" name="color" value="rosa"> Rosa</label>
+                    </div>
+                </div>
+
+                <!-- Filtro de Tamanho -->
+                <div class="filter-group">
+                    <h4>Tamanho</h4>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="size" value="p"> P</label>
+                        <label><input type="checkbox" name="size" value="m"> M</label>
+                        <label><input type="checkbox" name="size" value="g"> G</label>
+                        <label><input type="checkbox" name="size" value="gg"> GG</label>
+                    </div>
+                </div>
+
+                <!-- Filtro de Marca -->
+                <div class="filter-group">
+                    <h4>Marca</h4>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="brand" value="sserafim"> SSERAFIM</label>
+                        <label><input type="checkbox" name="brand" value="outra"> Outra Marca</label>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Grid de Produtos -->
+            <section class="products-section">
+                <div class="products-header">
+                    <h2>Produtos em <%= categoryName %></h2>
+                    <div class="sort-options">
+                        <label for="sort-by">Ordenar por:</label>
+                        <select id="sort-by" name="sort-by">
+                            <option value="default">Padrão</option>
+                            <option value="price-asc">Menor Preço</option>
+                            <option value="price-desc">Maior Preço</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="product-grid">
+                     <% if (products.length > 0) { %>
+                        <% products.forEach(product => { %>
+                            <div class="product-card">
+                                <a href="/products/<%= product.id %>">
+                                    <img src="<%= product.imageUrl %>" alt="<%= product.name %>">
+                                    <p class="illustrative-label">Imagem Ilustrativa</p>
+                                    <div class="product-info">
+                                        <h3><%= product.name %></h3>
+                                        <p class="product-price"><%= product.price %></p>
+                                        <button>Ver Produto</button>
+                                    </div>
+                                </a>
+                            </div>
+                        <% }) %>
+                    <% } else { %>
+                        <p>Nenhum produto encontrado nesta categoria.</p>
+                    <% } %>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <%- include('includes/end.ejs') %>

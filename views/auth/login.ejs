@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<%- include('../includes/head.ejs') %>
+
+<body>
+
+    <%- include('../includes/navigation.ejs') %>
+
+    <main class="login-page-main">
+        <div class="login-container">
+            <div class="login-toggle">
+                <button class="toggle-btn active" data-form="customer-form">Cliente</button>
+                <button class="toggle-btn" data-form="admin-form">Administrador</button>
+            </div>
+
+            <!-- Formulário de Login do Cliente -->
+            <form id="customer-form" class="login-form active">
+                <h2>Login do Cliente</h2>
+                <div class="form-group">
+                    <label for="customer-email">Email</label>
+                    <input type="email" id="customer-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="customer-password">Senha</label>
+                    <input type="password" id="customer-password" name="password" required>
+                </div>
+                <button type="submit" class="banner-button">Entrar</button>
+                <div class="form-links">
+                    <a href="#">Esqueci minha senha</a>
+                    <a href="#">Criar uma conta</a>
+                </div>
+            </form>
+
+            <!-- Formulário de Login do Administrador -->
+            <form id="admin-form" class="login-form">
+                <h2>Login de Administrador</h2>
+                <div class="form-group">
+                    <label for="admin-email">Email</label>
+                    <input type="email" id="admin-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="admin-password">Senha</label>
+                    <input type="password" id="admin-password" name="password" required>
+                </div>
+                 <div class="form-group">
+                    <label for="admin-key">Chave de Administrador</label>
+                    <input type="password" id="admin-key" name="adminKey" required>
+                </div>
+                <button type="submit" class="banner-button">Entrar como Admin</button>
+            </form>
+        </div>
+    </main>
+
+    <%- include('../includes/end.ejs') %>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleButtons = document.querySelectorAll('.toggle-btn');
+            const forms = document.querySelectorAll('.login-form');
+
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetFormId = button.getAttribute('data-form');
+
+                    // Desativa todos os botões e formulários
+                    toggleButtons.forEach(btn => btn.classList.remove('active'));
+                    forms.forEach(form => form.classList.remove('active'));
+
+                    // Ativa o botão e o formulário clicado
+                    button.classList.add('active');
+                    document.getElementById(targetFormId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

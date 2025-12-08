@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <%- include('../includes/header.ejs') %>
+
+    <main class="product-detail-page">
+        <% if (product) { %>
+            <div class="product-detail-container">
+                <div class="product-image-area">
+                    <img src="<%= product.imageUrl %>" alt="<%= product.name %>">
+                    <p class="illustrative-label">Imagem Ilustrativa</p>
+                </div>
+                <div class="product-info-area">
+                    <h1><%= product.name %></h1>
+                    <p class="price">R$ <%= product.price.toFixed(2) %></p>
+                    <p class="description"><%= product.description %></p>
+
+                    <!-- O FORMULÁRIO AGORA ENVOLVE TODAS AS OPÇÕES E O BOTÃO -->
+                    <form action="/cart" method="POST">
+                        <input type="hidden" name="productId" value="<%= product.id %>">
+                        
+                        <% 
+                        const allOutOfStock = product.variants && product.variants.every(v => v.stock === 0);
+                        %>
+
+                        <% if (product.variants && product.variants.length > 0) { %>
+                            <div class="product-options">
+                                <label for="size-select">Tamanho:</label>
+                                <select id="size-select" name="size" <% if (allOutOfStock) { %>disabled<% } %>>
+                                    <% product.variants.forEach(variant => { %>
+                                        <option value="<%= variant.size %>" <% if (variant.stock === 0) { %>disabled<% } %>>
+                                            <%= variant.size %>
+                                            <% if (variant.stock === 0) { %> (Esgotado) <% } %>
+                                        </option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                        <% } %>
+
+                        <% if (allOutOfStock) { %>
+                             <p class="out-of-stock-message">Produto esgotado.</p>
+                             <button type="submit" class="add-to-cart-btn" disabled>ADICIONAR AO CARRINHO</button>
+                        <% } else { %>
+                             <button type="submit" class="add-to-cart-btn">ADICIONAR AO CARRINHO</button>
+                        <% } %>
+                        
+                    </form>
+                </div>
+            </div>
+
+            <section class="related-products-section">
+                <h2>Recomendações: Produtos similares</h2>
+                <div class="product-grid">
+                    <!-- Similar products will go here -->
+                </div>
+            </section>
+        <% } else { %>
+            <p>Produto não encontrado.</p>
+        <% } %>
+    </main>
+
+    <!-- RODAPÉ -->
+    <%- include('../includes/footer.ejs') %>
+
+</body>
+</html>

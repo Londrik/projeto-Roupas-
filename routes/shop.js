@@ -1,15 +1,28 @@
-// Importa o framework Express.
-const express = require('express');
 
-// Cria um novo objeto de roteador do Express.
+const express = require('express');
 const router = express.Router();
 
-// Importa o controlador da loja, que contém a lógica para as rotas.
-const controladorDaLoja = require('../controllers/shop');
+const shopController = require('../controllers/shop');
 
-// Define uma rota GET para a raiz do site ('/').
-// Quando um usuário acessa a página inicial, a função getIndex do controlador da loja é chamada.
-router.get('/', controladorDaLoja.getIndex);
+// Rota de categoria ativada
+router.get('/category/:categoryName', shopController.getCategoryProducts);
 
-// Exporta o roteador para que ele possa ser usado no arquivo principal do aplicativo (index.js).
+// Rotas que devem funcionar com os controllers atuais
+router.get('/', shopController.getIndex);
+router.get('/products', shopController.getProducts);
+router.get('/products/:productId', shopController.getProduct);
+router.get('/login', shopController.getLogin);
+router.get('/cart', shopController.getCart);
+router.post('/cart', shopController.postCart);
+router.post('/cart-update-item', shopController.postCartUpdateItem);
+router.post('/cart-delete-item', shopController.postCartDeleteItem);
+router.get('/checkout', shopController.getCheckout);
+router.get('/search', shopController.getSearch);
+
+// Rotas comentadas que estavam causando o erro, pois seus controllers foram removidos ou simplificados.
+// router.post('/checkout', shopController.postCheckout); 
+// router.get('/payment', shopController.getPayment); 
+// router.post('/order', shopController.postOrder); 
+// router.get('/order-confirmation', shopController.getOrderConfirmation); 
+
 module.exports = router;

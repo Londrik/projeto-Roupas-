@@ -1,20 +1,18 @@
 <!DOCTYPE html>
-<!-- Define o tipo de documento como HTML5 -->
 <html lang="pt-BR">
-<!-- Define o idioma da página como Português do Brasil -->
-<head>
-    <meta charset="UTF-8">
-    <!-- Define o conjunto de caracteres como UTF-8 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Configura a viewport para responsividade -->
-    <title><%= pageTitle %></title>
-    <!-- Define o título da página, passado pelo controlador de erro -->
-    <link rel="stylesheet" href="/css/main.css">
-    <!-- Link para a folha de estilos principal (se houver) -->
-</head>
+
+<%- include('includes/head.ejs') %>
+
 <body>
-    <!-- Corpo do documento -->
-    <h1>Página Não Encontrada!</h1>
-    <!-- Título exibido na página de erro 404 -->
-</body>
-</html>
+
+    <%- include('includes/navigation.ejs') %>
+
+    <main>
+        <div class="container" style="text-align: center; padding: 120px 0;">
+            <h1>Página Não Encontrada</h1>
+            <p>Desculpe, a página que você está procurando não existe.</p>
+            <a href="/" class="banner-button" style="margin-top: 20px; display: inline-block;">Voltar para a Home</a>
+        </div>
+    </main>
+
+    <%- include('includes/end.ejs') %>
