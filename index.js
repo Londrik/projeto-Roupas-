@@ -42,7 +42,7 @@ app.use((req, res, next) => {
 
 // USO DAS ROTAS
 app.use('/api', rotasDaApi); // <<< CORREÇÃO: Usando as rotas da API para caminhos que começam com /api
-app.use(rotasDaLoja);
+app.use(rotasDaLoja); // Esta linha agora cuidará da rota '/', renderizando sua loja.
 app.use(controladorDeErro.get404);
 
 // FUNÇÃO PARA INICIAR O SERVIDOR APÓS CONECTAR AO BANCO

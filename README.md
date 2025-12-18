@@ -91,5 +91,5 @@ Retorna uma mensagem "Olá mundo" em formato JSON.
 **Exemplo de uso com `curl`:**
 
 ```bash
-curl http://localhost:8080/api
+curl http://localhost:3000
 ```
